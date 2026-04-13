@@ -3,6 +3,7 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Mail, MessageCircle, Send } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
 type ContactForm = {
   nom: string;
@@ -119,7 +120,7 @@ export default function Contact() {
                 className="group flex items-center gap-4"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-green-100 bg-green-50 transition-colors group-hover:bg-green-100">
-                  <MessageCircle size={19} className="text-green-600" />
+                  <FaWhatsapp size={19} className="text-green-600" />
                 </div>
                 <div>
                   <p className="font-sans text-xs text-muted-foreground">
@@ -253,15 +254,16 @@ export default function Contact() {
                   </span>
                   <span className="h-px flex-1 bg-border" />
                 </div>
-
                 <a
-                  href={`https://wa.me/33783695850?text=${whatsappMsg}`}
+                  href={`https://wa.me/33783695850?text=${encodeURIComponent(whatsappMsg)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-2 rounded-full border border-green-200 bg-green-50 py-3.5 font-sans text-sm font-medium text-green-700 transition-all duration-300 hover:bg-green-100"
+                  className="flex w-full items-center justify-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-3.5 text-center font-sans text-sm font-medium text-green-700 transition-all duration-300 hover:bg-green-100 sm:text-base"
                 >
-                  <MessageCircle size={15} />
-                  Contactez nous aussi par WhatsApp
+                  <FaWhatsapp size={19} className="shrink-0 text-green-600" />
+                  <span className="leading-tight">
+                    Contactez-nous aussi par WhatsApp
+                  </span>
                 </a>
               </form>
             )}
