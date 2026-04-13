@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 type Testimonial = {
@@ -41,19 +41,30 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<1 | -1>(1);
 
   const prev = () => {
+    setDirection(-1);
     setCurrent((value) => (value - 1 + testimonials.length) % testimonials.length);
   };
 
   const next = () => {
+    setDirection(1);
     setCurrent((value) => (value + 1) % testimonials.length);
+  };
+
+  const goTo = (index: number) => {
+    setDirection(index > current ? 1 : -1);
+    setCurrent(index);
   };
 
   const getIndex = (offset: number) => {
     return (current + offset + testimonials.length) % testimonials.length;
   };
+
+  const currentTestimonial = testimonials[current];
 
   return (
     <section id="avis" className="overflow-hidden bg-background py-28">
@@ -103,7 +114,63 @@ export default function Testimonials() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="relative"
         >
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          {/* Mobile */}
+          <div className="relative md:hidden">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={current}
+                custom={direction}
+                initial={{ opacity: 0, x: direction === 1 ? 80 : -80 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: direction === 1 ? -80 : 80 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.18}
+                whileDrag={{ scale: 0.98 }}
+                onDragEnd={(_, info) => {
+                  const swipeThreshold = 60;
+
+                  if (info.offset.x < -swipeThreshold) {
+                    next();
+                  } else if (info.offset.x > swipeThreshold) {
+                    prev();
+                  }
+                }}
+                className="cursor-grab touch-pan-y rounded-2xl border border-primary/30 bg-card p-7 shadow-lg active:cursor-grabbing"
+              >
+                <div className="mb-4 flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} size={13} className="fill-primary text-primary" />
+                  ))}
+                </div>
+
+                <p className="mb-6 font-serif text-lg leading-relaxed font-light text-foreground italic">
+                  &quot;{currentTestimonial.text}&quot;
+                </p>
+
+                <div className="flex items-center gap-3">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15">
+                    <span className="font-serif text-base text-primary">
+                      {currentTestimonial.name[0]}
+                    </span>
+                  </div>
+
+                  <div>
+                    <p className="font-sans text-sm font-medium text-foreground">
+                      {currentTestimonial.name}
+                    </p>
+                    <p className="font-sans text-xs text-muted-foreground">
+                      {currentTestimonial.event}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Desktop */}
+          <div className="hidden gap-6 md:grid md:grid-cols-3">
             {[-1, 0, 1].map((offset) => {
               const testimonial = testimonials[getIndex(offset)];
               const isCenter = offset === 0;
@@ -114,7 +181,7 @@ export default function Testimonials() {
                   className={`rounded-2xl border p-7 transition-all duration-500 ${
                     isCenter
                       ? "scale-100 border-primary/30 bg-card opacity-100 shadow-lg"
-                      : "hidden scale-95 border-border bg-card opacity-50 md:block"
+                      : "scale-95 border-border bg-card opacity-50"
                   }`}
                 >
                   <div className="mb-4 flex gap-0.5">
@@ -163,7 +230,7 @@ export default function Testimonials() {
                 <button
                   key={index}
                   type="button"
-                  onClick={() => setCurrent(index)}
+                  onClick={() => goTo(index)}
                   aria-label={`Aller au témoignage ${index + 1}`}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     index === current ? "w-6 bg-primary" : "w-1.5 bg-border"

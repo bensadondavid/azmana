@@ -11,8 +11,6 @@ type Category =
   | "Mariage"
   | "Bar Mitsva"
   | "Bat Mitsva"
-  | "Brit Mila"
-  | "Save the Date";
 
 type ModelItem = {
   name: string;
@@ -25,90 +23,103 @@ const categories: Category[] = [
   "Mariage",
   "Bar Mitsva",
   "Bat Mitsva",
-  "Brit Mila",
-  "Save the Date",
 ];
 
 const models: ModelItem[] = [
   {
     name: "Noa & David",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/modele-6-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-6-preview.webp",
   },
   {
     name: "Victoria & Alone",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/modele-3-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-3-preview.webp",
   },
   {
     name: "Judith & Dan-David",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/modele-7-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-7-preview.webp",
   },
   {
     name: "Lola & Hillel",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/modele-1-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-1-preview.webp",
   },
   {
     name: "Yael & Levy",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/modele-4-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-4-preview.webp",
   },
   {
     name: "Léa & Shay",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/modele-8-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-8-preview.webp",
   },
   {
     name: "Samuel",
     category: "Bar Mitsva",
-    img: "https://www.azmana.fr/Modeles/modele-bm-2-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-bm-2-preview.webp",
   },
   {
     name: "Yona",
     category: "Bar Mitsva",
-    img: "https://www.azmana.fr/Modeles/modele-bm-1-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-bm-1-preview.webp",
   },
   {
     name: "Lev",
     category: "Bat Mitsva",
-    img: "https://www.azmana.fr/Modeles/modele-btm-1-preview.webp",
-  },
-  {
-    name: "Eva",
-    category: "Bat Mitsva",
-    img: "https://www.azmana.fr/Modeles/modele-btm-3-preview.webp",
-  },
-  {
-    name: "Brit Mila",
-    category: "Brit Mila",
-    img: "https://www.azmana.fr/Modeles/brit-mila-1.webp",
-  },
-  {
-    name: "Brit Mila",
-    category: "Brit Mila",
-    img: "https://www.azmana.fr/Modeles/brit-mila-2.webp",
-  },
-  {
-    name: "Rachel & Yonie",
-    category: "Save the Date",
-    img: "https://www.azmana.fr/Modeles/std-3.webp",
-  },
-  {
-    name: "Myriam & Eli",
-    category: "Save the Date",
-    img: "https://www.azmana.fr/Modeles/std-4.webp",
-  },
-  {
-    name: "Ava & Lyron",
-    category: "Save the Date",
-    img: "https://www.azmana.fr/Modeles/std-9.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-btm-1-preview.webp",
   },
   {
     name: "Ambre & Dylan",
     category: "Mariage",
-    img: "https://www.azmana.fr/Modeles/ambre-dylan-preview.webp",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/ambre-dylan-preview.webp",
+  },
+  {
+    name: "Lola & Hillel",
+    category: "Mariage",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-2-preview.webp",
+  },
+  {
+    name: "Yael & Levy",
+    category: "Mariage",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-5-preview.webp",
+  },
+  {
+    name: "Shirel & Moshé",
+    category: "Mariage",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-9-preview.webp",
+  },
+  {
+    name: "Marine & Daniel",
+    category: "Mariage",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/marine-daniel-preview.webp",
+  },
+  {
+    name: "Ephraim",
+    category: "Bar Mitsva",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/ephraim-amos-preview.webp",
+  },
+  {
+    name: "Emmanuel",
+    category: "Bar Mitsva",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/bm-manu-preview.webp",
+  },
+  {
+    name: "David",
+    category: "Bar Mitsva",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-bm-3-preview.webp",
+  },
+  {
+    name: "Lois & Ruben",
+    category: "Mariage",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/lois-ruben-preview.webp",
+  },
+  {
+    name: "Elsa & Dan",
+    category: "Mariage",
+    img: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/elsa-dan-preview.webp",
   },
 ];
 

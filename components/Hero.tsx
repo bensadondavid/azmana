@@ -23,7 +23,7 @@ const stats = [
 
 const previews = [
   {
-    src: "https://www.azmana.fr/Modeles/modele-6-preview.webp",
+    src: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-6-preview.webp",
     alt: "Modèle Noa & David",
     className:
       "relative z-10 w-36 sm:w-44 rounded-3xl overflow-hidden border border-white/20 shadow-2xl",
@@ -31,7 +31,7 @@ const previews = [
     delay: 0.5,
   },
   {
-    src: "https://www.azmana.fr/Modeles/modele-3-preview.webp",
+    src: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-3-preview.webp",
     alt: "Modèle Victoria & Alone",
     className:
       "relative z-20 w-40 sm:w-52 rounded-3xl overflow-hidden border border-white/20 shadow-2xl",
@@ -39,7 +39,7 @@ const previews = [
     delay: 0.65,
   },
   {
-    src: "https://www.azmana.fr/Modeles/modele-7-preview.webp",
+    src: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-7-preview.webp",
     alt: "Modèle Judith",
     className:
       "relative z-10 w-36 sm:w-44 rounded-3xl overflow-hidden border border-white/20 shadow-2xl",
