@@ -138,7 +138,7 @@ function ModelCard({ model, index }: ModelCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: (index % 4) * 0.08 }}
-      className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-2xl bg-muted"
+      className="group relative aspect-3/4 cursor-pointer overflow-hidden rounded-2xl bg-muted"
     >
       <Image
         src={model.img}
@@ -148,17 +148,13 @@ function ModelCard({ model, index }: ModelCardProps) {
         unoptimized
       />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
       <div className="absolute right-0 bottom-0 left-0 translate-y-4 p-5 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
         <p className="mb-1 font-sans text-xs uppercase tracking-widest text-white/70">
           {model.category}
         </p>
         <p className="font-serif text-xl font-light text-white">{model.name}</p>
-      </div>
-
-      <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <ExternalLink size={14} className="text-foreground" />
       </div>
     </motion.div>
   );

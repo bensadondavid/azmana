@@ -2,7 +2,7 @@
 
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { Mail, MessageCircle, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 type ContactForm = {
@@ -66,9 +66,6 @@ export default function Contact() {
     }
   };
 
-  const whatsappMsg = encodeURIComponent(
-    `Bonjour Azmana ! Je souhaite créer une invitation.\n\nNom : ${form.nom}\nPrénom : ${form.prenom}\nTéléphone : ${form.telephone}\n\n${form.message || ""}`,
-  );
 
   return (
     <section id="contact" className="bg-secondary/30 py-28">
@@ -175,8 +172,8 @@ export default function Contact() {
               >
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: "nom", label: "Nom", placeholder: "Dupont" },
-                    { name: "prenom", label: "Prénom", placeholder: "Marie" },
+                    { name: "nom", label: "Nom", placeholder: "Nom" },
+                    { name: "prenom", label: "Prénom", placeholder: "Prénom" },
                   ].map((field) => (
                     <div key={field.name} className="flex flex-col gap-1.5">
                       <label
@@ -255,7 +252,7 @@ export default function Contact() {
                   <span className="h-px flex-1 bg-border" />
                 </div>
                 <a
-                  href={`https://wa.me/33783695850?text=${encodeURIComponent(whatsappMsg)}`}
+                  href={'https://wa.me/33783695850'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex w-full items-center justify-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-3.5 text-center font-sans text-sm font-medium text-green-700 transition-all duration-300 hover:bg-green-100 sm:text-base"
