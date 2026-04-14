@@ -6,16 +6,16 @@ import { Mail, Send } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 type ContactForm = {
-  nom: string;
-  prenom: string;
-  telephone: string;
+  lastname: string;
+  firstname: string;
+  phone: string;
   message: string;
 };
 
 const initialForm: ContactForm = {
-  nom: "",
-  prenom: "",
-  telephone: "",
+  lastname: "",
+  firstname: "",
+  phone: "",
   message: "",
 };
 
@@ -45,12 +45,18 @@ export default function Contact() {
     setError("");
 
     try {
-      const res = await fetch("/api/contact", {
+       const payload = {
+        lastname: form.lastname.trim(),
+        firstname: form.firstname.trim(),
+        phone: form.phone.trim(),
+        ...(form.message.trim() ? { message: form.message.trim() } : {}),
+      };
+      const res = await fetch("/api/contactform", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -172,8 +178,8 @@ export default function Contact() {
               >
                 <div className="grid grid-cols-2 gap-4">
                   {[
-                    { name: "nom", label: "Nom", placeholder: "Nom" },
-                    { name: "prenom", label: "Prénom", placeholder: "Prénom" },
+                    { name: "lastname", label: "Nom", placeholder: "Nom" },
+                    { name: "firstname", label: "Prénom", placeholder: "Prénom" },
                   ].map((field) => (
                     <div key={field.name} className="flex flex-col gap-1.5">
                       <label
@@ -197,15 +203,15 @@ export default function Contact() {
 
                 <div className="flex flex-col gap-1.5">
                   <label
-                    htmlFor="telephone"
+                    htmlFor="phone"
                     className="font-sans text-xs font-medium tracking-wide text-muted-foreground"
                   >
                     Téléphone
                   </label>
                   <input
-                    id="telephone"
-                    name="telephone"
-                    value={form.telephone}
+                    id="phone"
+                    name="phone"
+                    value={form.phone}
                     onChange={handleChange}
                     placeholder="+33 6 12 34 56 78"
                     required

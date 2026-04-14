@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -91,11 +93,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="fr"
-      className={`${cormorant.variable} ${inter.variable} h-full scroll-smooth antialiased`}
-    >
-      <body className="flex min-h-full flex-col">{children}</body>
+    <html lang="fr" className={`${cormorant.variable} ${inter.variable} h-full scroll-smooth antialiased`}>
+      <body className="flex min-h-full flex-col">
+        {children}
+        <Analytics />
+        <SpeedInsights />
+        </body>
     </html>
   );
 }
