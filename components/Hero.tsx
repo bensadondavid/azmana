@@ -42,8 +42,8 @@ export default function Hero() {
       className="relative flex min-h-screen items-center overflow-hidden bg-background pb-10 sm:pb-1"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 h-[50vh] w-[50vw] translate-x-1/3 -translate-y-1/4 rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 h-[40vh] w-[40vw] -translate-x-1/4 translate-y-1/4 rounded-full bg-primary/5 blur-[100px]" />
+        <div className="absolute top-0 right-0 h-[50vh] w-[50vw] translate-x-1/3 -translate-y-1/4 rounded-full bg-primary/5 blur-[60px]" />
+        <div className="absolute bottom-0 left-0 h-[40vh] w-[40vw] -translate-x-1/4 translate-y-1/4 rounded-full bg-primary/5 blur-[50px]" />
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-6 pt-24 pb-16 lg:px-12">
@@ -134,6 +134,7 @@ export default function Hero() {
                     height={840}
                     sizes="(max-width: 640px) 144px, 208px"
                     className="h-auto w-full"
+                    priority
                   />
                 </div>
               ))}

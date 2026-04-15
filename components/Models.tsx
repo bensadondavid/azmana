@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 type Category =
@@ -123,29 +122,16 @@ const models: ModelItem[] = [
   },
 ];
 
-type ModelCardProps = {
-  model: ModelItem;
-  index: number;
-};
-
-function ModelCard({ model, index }: ModelCardProps) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-
+function ModelCard({ model }: { model: ModelItem }) {
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: (index % 4) * 0.08 }}
-      className="group relative aspect-3/4 cursor-pointer overflow-hidden rounded-2xl bg-muted"
-    >
+    <div className="group relative aspect-3/4 cursor-pointer overflow-hidden rounded-2xl bg-muted">
       <Image
         src={model.img}
         alt={model.name}
         fill
+        loading="lazy"
         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        className="object-cover transition-transform duration-300 group-hover:scale-105"
       />
 
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -156,16 +142,13 @@ function ModelCard({ model, index }: ModelCardProps) {
         </p>
         <p className="font-serif text-xl font-light text-white">{model.name}</p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
 export default function Models() {
   const [activeCategory, setActiveCategory] = useState<Category>("Tous");
   const [showAll, setShowAll] = useState(false);
-
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const filtered =
     activeCategory === "Tous"
@@ -177,44 +160,25 @@ export default function Models() {
   return (
     <section id="modeles" className="bg-secondary/30 py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div ref={ref} className="mb-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="mb-5 inline-flex items-center gap-2"
-          >
+        <div className="mb-12 text-center">
+          <div className="mb-5 inline-flex items-center gap-2 opacity-0 animate-[fade-up_0.6s_ease-out_0.1s_forwards]">
             <span className="h-px w-8 bg-primary" />
             <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-primary">
               Galerie
             </span>
             <span className="h-px w-8 bg-primary" />
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
-            className="mb-4 font-serif text-4xl font-light text-foreground sm:text-5xl"
-          >
+          <h2 className="mb-4 font-serif text-4xl font-light text-foreground sm:text-5xl opacity-0 animate-[fade-up_0.6s_ease-out_0.2s_forwards]">
             Découvrez nos modèles
-          </motion.h2>
+          </h2>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2 }}
-            className="mx-auto max-w-md font-sans text-sm font-light text-muted-foreground"
-          >
+          <p className="mx-auto max-w-md font-sans text-sm font-light text-muted-foreground opacity-0 animate-[fade-up_0.6s_ease-out_0.3s_forwards]">
             Des créations uniques pour chaque événement de votre vie.
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.25 }}
-          className="mb-12 flex flex-wrap justify-center gap-3"
-        >
+        <div className="mb-12 flex flex-wrap justify-center gap-3 opacity-0 animate-[fade-up_0.6s_ease-out_0.35s_forwards]">
           {categories.map((category) => (
             <button
               key={category}
@@ -232,14 +196,13 @@ export default function Models() {
               {category}
             </button>
           ))}
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-6">
           {displayed.map((model, index) => (
             <ModelCard
               key={`${model.name}-${model.category}-${index}`}
               model={model}
-              index={index}
             />
           ))}
         </div>

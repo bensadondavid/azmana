@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 type Testimonial = {
@@ -39,9 +39,6 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function Testimonials() {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
 
@@ -69,34 +66,20 @@ export default function Testimonials() {
   return (
     <section id="avis" className="overflow-hidden bg-background py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div ref={ref} className="mb-16 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="mb-5 inline-flex items-center gap-2"
-          >
+        <div className="mb-16 text-center">
+          <div className="mb-5 inline-flex items-center gap-2 opacity-0 animate-[fade-up_0.6s_ease-out_0.1s_forwards]">
             <span className="h-px w-8 bg-primary" />
             <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-primary">
               Témoignages
             </span>
             <span className="h-px w-8 bg-primary" />
-          </motion.div>
+          </div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
-            className="mb-4 font-serif text-4xl font-light text-foreground sm:text-5xl"
-          >
+          <h2 className="mb-4 font-serif text-4xl font-light text-foreground sm:text-5xl opacity-0 animate-[fade-up_0.6s_ease-out_0.2s_forwards]">
             Ils nous ont fait confiance
-          </motion.h2>
+          </h2>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.2 }}
-            className="flex items-center justify-center gap-2"
-          >
+          <div className="flex items-center justify-center gap-2 opacity-0 animate-[fade-in_0.6s_ease-out_0.3s_forwards]">
             <div className="flex gap-0.5">
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star key={star} size={16} className="fill-primary text-primary" />
@@ -105,15 +88,10 @@ export default function Testimonials() {
             <span className="font-sans text-sm font-light text-muted-foreground">
               4.9 / 5
             </span>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="relative"
-        >
+        <div className="relative opacity-0 animate-[fade-up_0.6s_ease-out_0.35s_forwards]">
           {/* Mobile */}
           <div className="relative md:hidden">
             <AnimatePresence mode="wait" custom={direction}>
@@ -248,7 +226,7 @@ export default function Testimonials() {
               <ChevronRight size={18} />
             </button>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

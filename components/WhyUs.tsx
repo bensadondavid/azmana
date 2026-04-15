@@ -1,5 +1,3 @@
-"use client";
-
 import { Leaf, Palette, Share2, Smartphone } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
