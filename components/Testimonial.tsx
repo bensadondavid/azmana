@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 type Testimonial = {
@@ -41,6 +40,7 @@ const testimonials: Testimonial[] = [
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState<1 | -1>(1);
+  const touchStartX = useRef<number | null>(null);
 
   const prev = () => {
     setDirection(-1);
@@ -61,7 +61,23 @@ export default function Testimonials() {
     return (current + offset + testimonials.length) % testimonials.length;
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 60) next();
+    else if (diff < -60) prev();
+    touchStartX.current = null;
+  };
+
   const currentTestimonial = testimonials[current];
+  const slideAnimation =
+    direction === 1
+      ? "animate-[slide-from-right_0.35s_ease-out_forwards]"
+      : "animate-[slide-from-left_0.35s_ease-out_forwards]";
 
   return (
     <section id="avis" className="overflow-hidden bg-background py-28">
@@ -94,57 +110,39 @@ export default function Testimonials() {
         <div className="relative opacity-0 animate-[fade-up_0.6s_ease-out_0.35s_forwards]">
           {/* Mobile */}
           <div className="relative md:hidden">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                initial={{ opacity: 0, x: direction === 1 ? 80 : -80 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: direction === 1 ? -80 : 80 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.18}
-                whileDrag={{ scale: 0.98 }}
-                onDragEnd={(_, info) => {
-                  const swipeThreshold = 60;
+            <div
+              key={current}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              className={`cursor-grab touch-pan-y rounded-2xl border border-primary/30 bg-card p-7 shadow-lg active:cursor-grabbing ${slideAnimation}`}
+            >
+              <div className="mb-4 flex gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star key={star} size={13} className="fill-primary text-primary" />
+                ))}
+              </div>
 
-                  if (info.offset.x < -swipeThreshold) {
-                    next();
-                  } else if (info.offset.x > swipeThreshold) {
-                    prev();
-                  }
-                }}
-                className="cursor-grab touch-pan-y rounded-2xl border border-primary/30 bg-card p-7 shadow-lg active:cursor-grabbing"
-              >
-                <div className="mb-4 flex gap-0.5">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <Star key={star} size={13} className="fill-primary text-primary" />
-                  ))}
+              <p className="mb-6 font-serif text-lg leading-relaxed font-light text-foreground italic">
+                &quot;{currentTestimonial.text}&quot;
+              </p>
+
+              <div className="flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15">
+                  <span className="font-serif text-base text-primary">
+                    {currentTestimonial.name[0]}
+                  </span>
                 </div>
 
-                <p className="mb-6 font-serif text-lg leading-relaxed font-light text-foreground italic">
-                  &quot;{currentTestimonial.text}&quot;
-                </p>
-
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/15">
-                    <span className="font-serif text-base text-primary">
-                      {currentTestimonial.name[0]}
-                    </span>
-                  </div>
-
-                  <div>
-                    <p className="font-sans text-sm font-medium text-foreground">
-                      {currentTestimonial.name}
-                    </p>
-                    <p className="font-sans text-xs text-muted-foreground">
-                      {currentTestimonial.event}
-                    </p>
-                  </div>
+                <div>
+                  <p className="font-sans text-sm font-medium text-foreground">
+                    {currentTestimonial.name}
+                  </p>
+                  <p className="font-sans text-xs text-muted-foreground">
+                    {currentTestimonial.event}
+                  </p>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </div>
           </div>
 
           {/* Desktop */}
