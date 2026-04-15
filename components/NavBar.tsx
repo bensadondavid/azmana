@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
@@ -17,15 +16,9 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
-
   return (
     <>
-      <motion.nav
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-background/95 backdrop-blur-md shadow-sm border-b border-border"
->
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-background/95 backdrop-blur-md shadow-sm border-b border-border">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-12">
           <Link href="#hero" className="flex items-center gap-2">
             <span className="font-serif text-2xl font-light tracking-[0.15em] text-foreground">
@@ -63,40 +56,37 @@ export default function Navbar() {
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-x-0 top-16 z-40 border-b border-border bg-background/98 backdrop-blur-md"
+      <div
+        aria-hidden={!mobileOpen}
+        className={`fixed inset-x-0 top-16 z-40 border-b border-border bg-background/98 backdrop-blur-md transition-all duration-300 ${
+          mobileOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-2 pointer-events-none"
+        }`}
+      >
+        <div className="flex flex-col gap-5 px-6 py-6">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileOpen(false)}
+              className="font-sans text-base font-light text-foreground/80 transition-colors hover:text-primary"
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          <Link
+            href="#contact"
+            onClick={() => setMobileOpen(false)}
+            className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 font-sans text-sm font-medium text-primary-foreground"
           >
-            <div className="flex flex-col gap-5 px-6 py-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="font-sans text-base font-light text-foreground/80 transition-colors hover:text-primary"
-                >
-                  {link.label}
-                </Link>
-              ))}
-
-              <Link
-                href="#contact"
-                onClick={() => setMobileOpen(false)}
-                className="mt-2 inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 font-sans text-sm font-medium text-primary-foreground"
-              >
-                Commencer
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Commencer
+          </Link>
+        </div>
+      </div>
     </>
   );
 }

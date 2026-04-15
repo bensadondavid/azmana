@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 type Category =
   | "Tous"
@@ -144,8 +144,8 @@ function ModelCard({ model, index }: ModelCardProps) {
         src={model.img}
         alt={model.name}
         fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         className="object-cover transition-transform duration-700 group-hover:scale-105"
-        unoptimized
       />
 
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -172,7 +172,7 @@ export default function Models() {
       ? models
       : models.filter((model) => model.category === activeCategory);
 
-  const displayed = showAll ? filtered : filtered.slice(0, 8);
+  const displayed = showAll ? filtered : filtered.slice(0, 4);
 
   return (
     <section id="modeles" className="bg-secondary/30 py-28">
@@ -249,7 +249,7 @@ export default function Models() {
             <button
               type="button"
               onClick={() => setShowAll((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 font-sans text-sm font-light text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 font-sans text-sm font-light text-muted-foreground transition-all duration-300 hover:border-primary hover:text-primary cursor-pointer"
             >
               {showAll
                 ? "Voir moins"

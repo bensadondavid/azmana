@@ -1,19 +1,6 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowDown, Sparkles } from "lucide-react";
-
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: {
-    duration: 0.8,
-    delay,
-    ease: [0.25, 0.1, 0.25, 1] as const,
-  },
-});
 
 const stats = [
   { number: "3000+", label: "Invitations envoyées" },
@@ -28,7 +15,7 @@ const previews = [
     className:
       "relative z-10 w-36 sm:w-44 rounded-3xl overflow-hidden border border-white/20 shadow-2xl",
     style: { transform: "rotate(-4deg) translateY(20px)" },
-    delay: 0.5,
+    delay: "0.5s",
   },
   {
     src: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-3-preview.webp",
@@ -36,7 +23,7 @@ const previews = [
     className:
       "relative z-20 w-40 sm:w-52 rounded-3xl overflow-hidden border border-white/20 shadow-2xl",
     style: undefined,
-    delay: 0.65,
+    delay: "0.65s",
   },
   {
     src: "https://pub-32ed76fafe064db4932e2c55271750cb.r2.dev/modele-7-preview.webp",
@@ -44,7 +31,7 @@ const previews = [
     className:
       "relative z-10 w-36 sm:w-44 rounded-3xl overflow-hidden border border-white/20 shadow-2xl",
     style: { transform: "rotate(4deg) translateY(20px)" },
-    delay: 0.8,
+    delay: "0.8s",
   },
 ];
 
@@ -62,37 +49,36 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-7xl px-6 pt-24 pb-16 lg:px-12">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
           <div className="flex flex-col">
-            <motion.div
-              {...fadeUp(0.1)}
-              className="mb-8 inline-flex items-center gap-2"
+            <div
+              className="mb-8 inline-flex items-center gap-2 opacity-0 animate-[fade-up_0.8s_ease-out_0.1s_forwards]"
             >
               <span className="h-px w-8 bg-primary" />
               <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-primary">
                 Invitations Digitales de Luxe
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h1
-              {...fadeUp(0.25)}
-              className="mb-6 font-serif text-5xl leading-[1.1] font-light text-foreground sm:text-6xl lg:text-7xl"
+            <h1
+              className="mb-6 font-serif text-5xl leading-[1.1] font-light text-foreground opacity-0 sm:text-6xl lg:text-7xl animate-[fade-up_0.8s_ease-out_0.25s_forwards]"
             >
               Chaque moment
               <br />
               <em className="not-italic text-primary">mérite</em> une
               <br />
               invitation parfaite.
-            </motion.h1>
+            </h1>
 
-            <motion.p
-              {...fadeUp(0.4)}
-              className="mb-10 max-w-lg font-sans text-base leading-relaxed font-light text-muted-foreground"
+            <p
+              className="mb-10 max-w-lg font-sans text-base leading-relaxed font-light text-muted-foreground opacity-0 animate-[fade-up_0.8s_ease-out_0.4s_forwards]"
             >
               Mariage, Bar Mitsva, Bat Mitsva, Brit Mila, naissance…
               Offrez à vos invités une expérience digitale immersive et
               inoubliable, entièrement personnalisée à votre image.
-            </motion.p>
+            </p>
 
-            <motion.div {...fadeUp(0.5)} className="flex flex-wrap gap-4">
+            <div
+              className="flex flex-wrap gap-4 opacity-0 animate-[fade-up_0.8s_ease-out_0.5s_forwards]"
+            >
               <Link
                 href="#modeles"
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 font-sans text-sm font-medium tracking-wide text-primary-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/25"
@@ -107,11 +93,10 @@ export default function Hero() {
               >
                 Nos tarifs
               </Link>
-            </motion.div>
+            </div>
 
-            <motion.div
-              {...fadeUp(0.65)}
-              className="mt-14 flex items-center gap-10 border-t border-border pt-10"
+            <div
+              className="mt-14 flex items-center gap-10 border-t border-border pt-10 opacity-0 animate-[fade-up_0.8s_ease-out_0.65s_forwards]"
             >
               {stats.map((stat) => (
                 <div key={stat.label}>
@@ -123,64 +108,51 @@ export default function Hero() {
                   </p>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 1,
-              delay: 0.3,
-              ease: [0.25, 0.1, 0.25, 1],
-            }}
-            className="relative flex items-center justify-center"
+          <div
+            className="relative flex items-center justify-center opacity-0 animate-[fade-right_1s_ease-out_0.3s_forwards]"
           >
             <div className="absolute h-[340px] w-[340px] animate-pulse rounded-full border border-primary/20" />
             <div className="absolute h-[440px] w-[440px] rounded-full border border-primary/10" />
 
             <div className="relative flex items-end justify-center gap-4">
               {previews.map((preview) => (
-                <motion.div
+                <div
                   key={preview.alt}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: preview.delay }}
-                  className={preview.className}
-                  style={preview.style}
+                  className={`${preview.className} opacity-0 animate-[fade-up_0.8s_ease-out_forwards]`}
+                  style={{
+                    ...preview.style,
+                    animationDelay: preview.delay,
+                  }}
                 >
                   <Image
                     src={preview.src}
                     alt={preview.alt}
                     width={420}
                     height={840}
+                    sizes="(max-width: 640px) 144px, 208px"
                     className="h-auto w-full"
-                    unoptimized
                   />
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+      <div
+        className="absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 opacity-0 animate-[fade-in_0.8s_ease-out_1.2s_forwards]"
       >
         <span className="font-sans text-xs uppercase tracking-[0.2em] text-muted-foreground">
           Découvrir
         </span>
 
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
+        <div className="animate-[bounce-soft_1.5s_ease-in-out_infinite]">
           <ArrowDown size={14} className="text-primary" />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

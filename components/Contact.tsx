@@ -1,7 +1,6 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Mail, Send } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -25,8 +24,6 @@ export default function Contact() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const ref = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -77,45 +74,26 @@ export default function Contact() {
     <section id="contact" className="bg-secondary/30 py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
         <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
-          <div ref={ref}>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              className="mb-5 inline-flex items-center gap-2"
-            >
+          <div>
+            <div className="mb-5 inline-flex items-center gap-2">
               <span className="h-px w-8 bg-primary" />
               <span className="font-sans text-xs font-medium uppercase tracking-[0.2em] text-primary">
                 Contact
               </span>
-            </motion.div>
+            </div>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1 }}
-              className="mb-4 font-serif text-4xl font-light text-foreground sm:text-5xl"
-            >
+            <h2 className="mb-4 font-serif text-4xl font-light text-foreground sm:text-5xl">
               Créons votre
               <br />
               <em className="text-primary not-italic">invitation ensemble.</em>
-            </motion.h2>
+            </h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.2 }}
-              className="mb-10 max-w-sm font-sans text-sm leading-relaxed font-light text-muted-foreground"
-            >
+            <p className="mb-10 max-w-sm font-sans text-sm leading-relaxed font-light text-muted-foreground">
               Laissez-nous vos coordonnées et nous vous rappellerons rapidement
               pour trouver la solution idéale pour votre événement.
-            </motion.p>
+            </p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3 }}
-              className="flex flex-col gap-5"
-            >
+            <div className="flex flex-col gap-5">
               <a
                 href="https://wa.me/33783695850"
                 target="_blank"
@@ -151,14 +129,10 @@ export default function Contact() {
                   </p>
                 </div>
               </a>
-            </motion.div>
+            </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
+          <div>
             {sent ? (
               <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-border bg-card p-12 text-center">
                 <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
@@ -270,7 +244,7 @@ export default function Contact() {
                 </a>
               </form>
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
